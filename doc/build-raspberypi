@@ -1,0 +1,32 @@
+Raspberry BUILD NOTES
+====================
+
+Install RPI Packages
+====================
+
+sudo apt-get install git
+sudo apt-get install build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils python3
+sudo apt-get install libboost-all-dev
+sudo apt-get install software-properties-common
+sudo apt-get update
+sudo apt-get install libminiupnpc-dev
+sudo apt-get install libzmq3-dev
+
+Increase Swap size 
+====================
+
+sudo nano /etc/dphys-swapfile
+- In this file, change CONF_SWAPSIZE=100 to CONF_SWAPSIZE=1000
+sudo reboot
+
+Go in /depends
+====================
+
+make HOST=aarch64-linux-gnu -j4 (for -j use N of cores you have available, following your RPI model)
+
+Go in /kotiacash
+====================
+./autogen.sh
+./configure --prefix=`pwd`/depends/aarch64-linux-gnu -with-gui=no --use-incompatible-bdb (if you installed Berkeley DB 4.8 dont use this command)
+make -j4
+
